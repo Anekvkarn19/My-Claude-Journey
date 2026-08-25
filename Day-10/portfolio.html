@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anekvarna — Software Engineer | AI & Web Developer</title>
+<meta name="description" content="Portfolio of Anekvarna, a Computer Science student and aspiring AI/software developer building AI-powered tools, web apps, and hackathon projects like NIRIKSHAK AI, PLACIQ, and GyanSetu.">
+<meta name="keywords" content="Anekvarna, Software Engineer, AI Developer, Web Developer, Portfolio, NIRIKSHAK AI, PLACIQ, GyanSetu, Smart India Hackathon">
+<meta name="author" content="Anekvarna">
+<meta property="og:title" content="Anekvarna — Software Engineer">
+<meta property="og:description" content="Computer Science student and aspiring AI/software developer. Explore projects, skills, and achievements.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        colors: {
+          ink: '#0B1120',
+          panel: '#111A2E',
+          line: '#1E2A44',
+          teal: {
+            400: '#2DD4BF',
+            500: '#14B8A6',
+          },
+          amber: {
+            400: '#FBBF24',
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root{ --grid-line: rgba(45,212,191,0.08); }
+  html.light{ --grid-line: rgba(20,184,166,0.10); }
+  body{ font-family:'Inter',sans-serif; }
+  .font-display{ font-family:'Space Grotesk',sans-serif; }
+  .font-mono{ font-family:'JetBrains Mono',monospace; }
+
+  .bg-scan{
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform: translateY(0); }
+
+  .skill-bar-fill{ width:0%; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+
+  .cursor-blink::after{
+    content:'|'; animation: blink 1s step-end infinite; color:#2DD4BF;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .nav-link{ position:relative; }
+  .nav-link::after{
+    content:''; position:absolute; left:0; bottom:-4px; width:0%; height:2px;
+    background: linear-gradient(90deg,#2DD4BF,#FBBF24); transition: width .3s ease;
+  }
+  .nav-link.active::after, .nav-link:hover::after{ width:100%; }
+  .nav-link.active{ color:#2DD4BF; }
+
+  .status-node{ box-shadow: 0 0 0 4px rgba(45,212,191,0.15); }
+
+  .card-hover{ transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
+  .card-hover:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px -20px rgba(45,212,191,0.25); }
+
+  ::selection{ background:#2DD4BF; color:#0B1120; }
+
+  .scrollbar-thin::-webkit-scrollbar{ width:6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background:#2DD4BF; border-radius:4px; }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ transition:none !important; opacity:1 !important; transform:none !important; }
+    .skill-bar-fill{ transition:none !important; }
+  }
+
+  .focus-ring:focus-visible{ outline:2px solid #2DD4BF; outline-offset:3px; }
+
+  .badge-corner{ clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%); }
+</style>
+</head>
+<body class="bg-ink text-slate-200 font-body antialiased selection:bg-teal-400 selection:text-ink transition-colors duration-300">
+
+<!-- ============ NAV ============ -->
+<header id="mainNav" class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-ink/70 dark:bg-ink/70 border-b border-line/60 transition-colors">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#hero" class="font-display text-lg font-semibold tracking-tight flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-teal-400 status-node"></span>
+      <span>ANEKVARNA</span><span class="text-amber-400">.</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300 font-mono">
+      <a href="#about" class="nav-link">01_about</a>
+      <a href="#skills" class="nav-link">02_skills</a>
+      <a href="#projects" class="nav-link">03_projects</a>
+      <a href="#achievements" class="nav-link">04_log</a>
+      <a href="#contact" class="nav-link">05_contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button id="themeToggle" aria-label="Toggle dark/light mode" class="focus-ring w-10 h-10 rounded-full border border-line flex items-center justify-center hover:border-teal-400 transition-colors">
+        <svg id="iconMoon" class="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg id="iconSun" class="w-4 h-4 text-amber-400 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.36 6.36l-.7-.7M6.34 6.34l-.7-.7m12.02 0l-.7.7M6.34 17.66l-.7.7M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      </button>
+      <button id="menuToggle" aria-label="Open menu" class="md:hidden focus-ring w-10 h-10 rounded-full border border-line flex items-center justify-center">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden border-t border-line bg-ink/95 px-6 py-4 flex flex-col gap-4 font-mono text-sm">
+    <a href="#about" class="nav-link">01_about</a>
+    <a href="#skills" class="nav-link">02_skills</a>
+    <a href="#projects" class="nav-link">03_projects</a>
+    <a href="#achievements" class="nav-link">04_log</a>
+    <a href="#contact" class="nav-link">05_contact</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="relative min-h-screen flex items-center bg-scan overflow-hidden pt-24">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-72 h-72 bg-amber-400/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10 w-full grid md:grid-cols-[1.3fr,1fr] gap-12 items-center">
+    <div>
+      <p class="font-mono text-teal-400 text-sm mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
+        STATUS: OPEN_TO_OPPORTUNITIES
+      </p>
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] text-white">
+        Anekvarna
+      </h1>
+      <p class="font-display text-2xl sm:text-3xl mt-3 text-slate-300">
+        <span id="typedRole" class="cursor-blink text-teal-400"></span>
+      </p>
+      <p class="mt-6 text-slate-400 max-w-xl leading-relaxed">
+        Computer Science student turning ideas into practical, working software — one hackathon, one prototype, one line of code at a time. Based in Ghaziabad, India.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a href="#projects" class="focus-ring px-6 py-3 rounded-lg bg-teal-400 text-ink font-semibold hover:bg-teal-300 transition-colors">View Projects</a>
+        <a href="#contact" class="focus-ring px-6 py-3 rounded-lg border border-line text-slate-200 hover:border-teal-400 hover:text-teal-400 transition-colors">Get in Touch</a>
+      </div>
+
+      <div class="mt-10 flex items-center gap-5">
+        <a href="https://github.com/Anekvkarn19" target="_blank" rel="noopener" aria-label="GitHub" class="focus-ring w-11 h-11 rounded-full border border-line flex items-center justify-center hover:border-teal-400 hover:text-teal-400 transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.98 5.24.98 11.52c0 4.84 3.14 8.94 7.5 10.39.55.1.75-.24.75-.53 0-.26-.01-1.13-.02-2.05-3.05.66-3.7-1.3-3.7-1.3-.5-1.27-1.22-1.61-1.22-1.61-1-.68.08-.67.08-.67 1.1.08 1.68 1.13 1.68 1.13.98 1.68 2.57 1.2 3.2.91.1-.71.38-1.2.7-1.47-2.44-.28-5-1.22-5-5.42 0-1.2.43-2.18 1.13-2.95-.11-.28-.49-1.4.11-2.92 0 0 .92-.3 3.03 1.12a10.5 10.5 0 015.52 0c2.1-1.42 3.02-1.12 3.02-1.12.6 1.52.22 2.64.11 2.92.7.77 1.13 1.75 1.13 2.95 0 4.21-2.56 5.14-5.01 5.41.39.34.74 1.02.74 2.06 0 1.49-.01 2.68-.01 3.05 0 .29.2.64.76.53 4.36-1.45 7.5-5.55 7.5-10.39C23.02 5.24 18.27.5 12 .5z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/anekvarna-1a4447368/" target="_blank" rel="noopener" aria-label="LinkedIn" class="focus-ring w-11 h-11 rounded-full border border-line flex items-center justify-center hover:border-teal-400 hover:text-teal-400 transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="mailto:anek.varna030@gmail.com" aria-label="Email" class="focus-ring w-11 h-11 rounded-full border border-line flex items-center justify-center hover:border-teal-400 hover:text-teal-400 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Signature element: verification / scan panel -->
+    <div class="relative reveal in">
+      <div class="rounded-2xl border border-line bg-panel/80 p-6 font-mono text-sm shadow-2xl shadow-black/40">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-3 h-3 rounded-full bg-red-400/70"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-400/70"></span>
+          <span class="w-3 h-3 rounded-full bg-teal-400/70"></span>
+          <span class="ml-2 text-slate-500 text-xs">inspection_log.sh</span>
+        </div>
+        <div class="space-y-2 text-slate-400">
+          <p><span class="text-teal-400">$</span> whoami</p>
+          <p class="text-slate-200 pl-4">Anekvarna — CS student, builder</p>
+          <p><span class="text-teal-400">$</span> check --status project=NIRIKSHAK_AI</p>
+          <p class="text-slate-200 pl-4 flex items-center gap-2"><span class="text-teal-400">✔</span> compliant — verification pipeline live</p>
+          <p><span class="text-teal-400">$</span> location</p>
+          <p class="text-slate-200 pl-4">Ghaziabad, India</p>
+          <p><span class="text-teal-400">$</span> currently_building</p>
+          <p class="text-slate-200 pl-4">AI agents · web apps · hackathon prototypes</p>
+          <p class="flex items-center gap-1"><span class="text-teal-400">$</span> <span class="cursor-blink"></span></p>
+        </div>
+      </div>
+      <div class="absolute -bottom-5 -right-5 bg-amber-400 text-ink font-display font-bold px-4 py-2 rounded-lg badge-corner shadow-lg text-sm">
+        SIH 2026
+      </div>
+    </div>
+  </div>
+
+  <a href="#about" class="focus-ring absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 hover:text-teal-400 transition-colors" aria-label="Scroll to About">
+    <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+  </a>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="py-28 border-t border-line/60">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-[0.4fr,1fr] gap-12">
+    <div class="reveal">
+      <p class="font-mono text-teal-400 text-sm mb-3">01 / ABOUT</p>
+      <h2 class="font-display text-4xl font-bold text-white leading-tight">Building things<br/>that actually work.</h2>
+    </div>
+    <div class="reveal">
+      <p class="text-lg text-slate-300 leading-relaxed">
+        I'm a Computer Science student and aspiring AI/software developer who enjoys turning ideas into practical solutions. I'm exploring AI, web development, programming, and software engineering through hands-on projects and hackathons.
+      </p>
+      <p class="mt-5 text-slate-400 leading-relaxed">
+        I believe the best way to learn is by building, experimenting, and continuously improving. Right now I'm focused on growing my technical skills and creating projects that solve meaningful real-world problems.
+      </p>
+
+      <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="rounded-xl border border-line p-4">
+          <p class="font-display text-2xl font-bold text-teal-400">3+</p>
+          <p class="text-xs text-slate-500 mt-1 font-mono">Projects Shipped</p>
+        </div>
+        <div class="rounded-xl border border-line p-4">
+          <p class="font-display text-2xl font-bold text-teal-400">2</p>
+          <p class="text-xs text-slate-500 mt-1 font-mono">Hackathons</p>
+        </div>
+        <div class="rounded-xl border border-line p-4">
+          <p class="font-display text-2xl font-bold text-teal-400">60</p>
+          <p class="text-xs text-slate-500 mt-1 font-mono">Day AI Challenge</p>
+        </div>
+        <div class="rounded-xl border border-line p-4">
+          <p class="font-display text-2xl font-bold text-teal-400">IN</p>
+          <p class="text-xs text-slate-500 mt-1 font-mono">Ghaziabad, India</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="py-28 border-t border-line/60 bg-panel/40">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="font-mono text-teal-400 text-sm mb-3 reveal">02 / SKILLS</p>
+    <h2 class="font-display text-4xl font-bold text-white mb-14 reveal">What I work with.</h2>
+
+    <div class="grid md:grid-cols-2 gap-16">
+      <div class="reveal">
+        <h3 class="font-display text-lg font-semibold text-slate-200 mb-6">Technical Proficiency</h3>
+        <div class="space-y-6" id="skillBars">
+          <div>
+            <div class="flex justify-between text-sm mb-2 font-mono"><span>C++</span><span class="text-teal-400">85%</span></div>
+            <div class="h-2 bg-line rounded-full overflow-hidden"><div class="skill-bar-fill h-full bg-gradient-to-r from-teal-500 to-teal-300 rounded-full" data-width="85"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2 font-mono"><span>Java</span><span class="text-teal-400">80%</span></div>
+            <div class="h-2 bg-line rounded-full overflow-hidden"><div class="skill-bar-fill h-full bg-gradient-to-r from-teal-500 to-teal-300 rounded-full" data-width="80"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2 font-mono"><span>JavaScript</span><span class="text-teal-400">78%</span></div>
+            <div class="h-2 bg-line rounded-full overflow-hidden"><div class="skill-bar-fill h-full bg-gradient-to-r from-teal-500 to-teal-300 rounded-full" data-width="78"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2 font-mono"><span>MySQL</span><span class="text-teal-400">75%</span></div>
+            <div class="h-2 bg-line rounded-full overflow-hidden"><div class="skill-bar-fill h-full bg-gradient-to-r from-teal-500 to-teal-300 rounded-full" data-width="75"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2 font-mono"><span>Git & GitHub</span><span class="text-teal-400">82%</span></div>
+            <div class="h-2 bg-line rounded-full overflow-hidden"><div class="skill-bar-fill h-full bg-gradient-to-r from-teal-500 to-teal-300 rounded-full" data-width="82"></div></div>
+          </div>
+        </div>
+
+        <h3 class="font-display text-lg font-semibold text-slate-200 mt-10 mb-4">Tools</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 rounded-full border border-line text-xs font-mono text-slate-300">VS Code</span>
+          <span class="px-3 py-1.5 rounded-full border border-line text-xs font-mono text-slate-300">Jupyter</span>
+          <span class="px-3 py-1.5 rounded-full border border-line text-xs font-mono text-slate-300">Claude</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <h3 class="font-display text-lg font-semibold text-slate-200 mb-6">Soft Skills</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 rounded-lg bg-ink border border-line text-sm text-slate-300 hover:border-amber-400 hover:text-amber-400 transition-colors">Problem Solving</span>
+          <span class="px-4 py-2 rounded-lg bg-ink border border-line text-sm text-slate-300 hover:border-amber-400 hover:text-amber-400 transition-colors">Communication</span>
+          <span class="px-4 py-2 rounded-lg bg-ink border border-line text-sm text-slate-300 hover:border-amber-400 hover:text-amber-400 transition-colors">Teamwork</span>
+          <span class="px-4 py-2 rounded-lg bg-ink border border-line text-sm text-slate-300 hover:border-amber-400 hover:text-amber-400 transition-colors">Critical Thinking</span>
+          <span class="px-4 py-2 rounded-lg bg-ink border border-line text-sm text-slate-300 hover:border-amber-400 hover:text-amber-400 transition-colors">Adaptability</span>
+          <span class="px-4 py-2 rounded-lg bg-ink border border-line text-sm text-slate-300 hover:border-amber-400 hover:text-amber-400 transition-colors">Time Management</span>
+          <span class="px-4 py-2 rounded-lg bg-ink border border-line text-sm text-slate-300 hover:border-amber-400 hover:text-amber-400 transition-colors">Quick Learning</span>
+          <span class="px-4 py-2 rounded-lg bg-ink border border-line text-sm text-slate-300 hover:border-amber-400 hover:text-amber-400 transition-colors">Leadership</span>
+        </div>
+
+        <div class="mt-10 rounded-xl border border-line p-6 bg-ink/60">
+          <p class="font-mono text-xs text-teal-400 mb-2">// currently learning</p>
+          <p class="text-slate-300">AI agent orchestration, computer vision pipelines, and prompt engineering — via daily hands-on practice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="py-28 border-t border-line/60">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="font-mono text-teal-400 text-sm mb-3 reveal">03 / PROJECTS</p>
+    <h2 class="font-display text-4xl font-bold text-white mb-14 reveal">Selected work.</h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <article class="reveal card-hover rounded-2xl border border-line bg-panel/60 p-7 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <span class="font-mono text-xs text-amber-400">SIH 2026</span>
+          <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2">NIRIKSHAK AI</h3>
+        <p class="text-slate-400 text-sm leading-relaxed flex-1">AI-assisted inspection and compliance verification system for packaged commodities under Legal Metrology regulations — built for Smart India Hackathon 2026.</p>
+        <div class="flex flex-wrap gap-2 mt-5">
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">AI/ML</span>
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">OCR</span>
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">Computer Vision</span>
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">Web Dev</span>
+        </div>
+      </article>
+
+      <article class="reveal card-hover rounded-2xl border border-line bg-panel/60 p-7 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <span class="font-mono text-xs text-amber-400">MULTI-AGENT</span>
+          <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2">PLACIQ</h3>
+        <p class="text-slate-400 text-sm leading-relaxed flex-1">AI-powered multi-agent solution designed to simplify and automate task and workflow management for teams.</p>
+        <div class="flex flex-wrap gap-2 mt-5">
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">AI Agents</span>
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">Python</span>
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">Web Dev</span>
+        </div>
+      </article>
+
+      <article class="reveal card-hover rounded-2xl border border-line bg-panel/60 p-7 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <span class="font-mono text-xs text-amber-400">EDTECH</span>
+          <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2">GyanSetu</h3>
+        <p class="text-slate-400 text-sm leading-relaxed flex-1">Educational platform designed to make learning resources and academic support more accessible to students.</p>
+        <div class="flex flex-wrap gap-2 mt-5">
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">HTML</span>
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">CSS</span>
+          <span class="px-2.5 py-1 rounded-md bg-ink border border-line text-[11px] font-mono text-teal-400">JavaScript</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-10 text-center reveal">
+      <a href="https://github.com/Anekvkarn19" target="_blank" rel="noopener" class="focus-ring inline-flex items-center gap-2 text-teal-400 font-mono text-sm hover:text-teal-300 transition-colors">
+        view more on github <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACHIEVEMENTS ============ -->
+<section id="achievements" class="py-28 border-t border-line/60 bg-panel/40">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="font-mono text-teal-400 text-sm mb-3 reveal">04 / LOG</p>
+    <h2 class="font-display text-4xl font-bold text-white mb-14 reveal">Achievements & activity.</h2>
+
+    <div class="relative pl-8 space-y-10 before:content-[''] before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-px before:bg-line">
+      <div class="relative reveal">
+        <span class="absolute -left-8 top-1 w-3.5 h-3.5 rounded-full bg-teal-400 status-node"></span>
+        <p class="font-mono text-xs text-amber-400 mb-1">2026</p>
+        <h3 class="font-display text-lg font-semibold text-white">Smart India Hackathon 2026</h3>
+        <p class="text-slate-400 text-sm mt-1 max-w-2xl">Participating in the development of NIRIKSHAK AI for the Legal Metrology / Consumer Affairs problem statement — building AI-driven compliance verification tools.</p>
+      </div>
+      <div class="relative reveal">
+        <span class="absolute -left-8 top-1 w-3.5 h-3.5 rounded-full bg-teal-400 status-node"></span>
+        <p class="font-mono text-xs text-amber-400 mb-1">Ongoing</p>
+        <h3 class="font-display text-lg font-semibold text-white">60-Day Claude AI Mastery Challenge</h3>
+        <p class="text-slate-400 text-sm mt-1 max-w-2xl">Building and documenting hands-on AI workflows, prompt engineering experiments, and AI-powered applications day by day.</p>
+      </div>
+      <div class="relative reveal">
+        <span class="absolute -left-8 top-1 w-3.5 h-3.5 rounded-full bg-teal-400 status-node"></span>
+        <p class="font-mono text-xs text-amber-400 mb-1">Continuous</p>
+        <h3 class="font-display text-lg font-semibold text-white">Hackathon & Project Development</h3>
+        <p class="text-slate-400 text-sm mt-1 max-w-2xl">Hands-on experience building AI and software projects through collaborative development and rapid prototyping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="py-28 border-t border-line/60">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-14">
+    <div class="reveal">
+      <p class="font-mono text-teal-400 text-sm mb-3">05 / CONTACT</p>
+      <h2 class="font-display text-4xl font-bold text-white mb-6">Let's build something.</h2>
+      <p class="text-slate-400 leading-relaxed max-w-md">Open to internships, collaborations, and interesting problems to solve. Reach out directly or send a message below.</p>
+
+      <div class="mt-10 space-y-4 font-mono text-sm">
+        <a href="mailto:anek.varna030@gmail.com" class="focus-ring flex items-center gap-3 text-slate-300 hover:text-teal-400 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          anek.varna030@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/anekvarna-1a4447368/" target="_blank" rel="noopener" class="focus-ring flex items-center gap-3 text-slate-300 hover:text-teal-400 transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          linkedin.com/in/anekvarna
+        </a>
+        <a href="https://github.com/Anekvkarn19" target="_blank" rel="noopener" class="focus-ring flex items-center gap-3 text-slate-300 hover:text-teal-400 transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.98 5.24.98 11.52c0 4.84 3.14 8.94 7.5 10.39.55.1.75-.24.75-.53 0-.26-.01-1.13-.02-2.05-3.05.66-3.7-1.3-3.7-1.3-.5-1.27-1.22-1.61-1.22-1.61-1-.68.08-.67.08-.67 1.1.08 1.68 1.13 1.68 1.13.98 1.68 2.57 1.2 3.2.91.1-.71.38-1.2.7-1.47-2.44-.28-5-1.22-5-5.42 0-1.2.43-2.18 1.13-2.95-.11-.28-.49-1.4.11-2.92 0 0 .92-.3 3.03 1.12a10.5 10.5 0 015.52 0c2.1-1.42 3.02-1.12 3.02-1.12.6 1.52.22 2.64.11 2.92.7.77 1.13 1.75 1.13 2.95 0 4.21-2.56 5.14-5.01 5.41.39.34.74 1.02.74 2.06 0 1.49-.01 2.68-.01 3.05 0 .29.2.64.76.53 4.36-1.45 7.5-5.55 7.5-10.39C23.02 5.24 18.27.5 12 .5z"/></svg>
+          github.com/Anekvkarn19
+        </a>
+        <p class="flex items-center gap-3 text-slate-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Ghaziabad, India
+        </p>
+      </div>
+    </div>
+
+    <form id="contactForm" class="reveal space-y-5" novalidate>
+      <div>
+        <label for="name" class="block text-xs font-mono text-slate-400 mb-2">NAME</label>
+        <input required id="name" name="name" type="text" class="focus-ring w-full bg-panel border border-line rounded-lg px-4 py-3 text-slate-200 placeholder-slate-600 focus:border-teal-400 outline-none transition-colors" placeholder="Your name">
+      </div>
+      <div>
+        <label for="email" class="block text-xs font-mono text-slate-400 mb-2">EMAIL</label>
+        <input required id="email" name="email" type="email" class="focus-ring w-full bg-panel border border-line rounded-lg px-4 py-3 text-slate-200 placeholder-slate-600 focus:border-teal-400 outline-none transition-colors" placeholder="you@example.com">
+      </div>
+      <div>
+        <label for="message" class="block text-xs font-mono text-slate-400 mb-2">MESSAGE</label>
+        <textarea required id="message" name="message" rows="4" class="focus-ring w-full bg-panel border border-line rounded-lg px-4 py-3 text-slate-200 placeholder-slate-600 focus:border-teal-400 outline-none transition-colors resize-none" placeholder="Tell me about your project or opportunity..."></textarea>
+      </div>
+      <button type="submit" class="focus-ring w-full px-6 py-3 rounded-lg bg-teal-400 text-ink font-semibold hover:bg-teal-300 transition-colors">
+        Send Message
+      </button>
+      <p id="formStatus" class="text-sm font-mono text-center h-5"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-line/60 py-8">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-mono">
+    <p>© <span id="year"></span> Anekvarna. Built with intent.</p>
+    <p>Ghaziabad, India · <a href="mailto:anek.varna030@gmail.com" class="hover:text-teal-400 transition-colors">anek.varna030@gmail.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Theme toggle ----
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const iconMoon = document.getElementById('iconMoon');
+  const iconSun = document.getElementById('iconSun');
+
+  function applyTheme(mode){
+    if(mode === 'light'){
+      root.classList.add('light');
+      document.body.classList.remove('bg-ink','text-slate-200');
+      document.body.classList.add('bg-[#F5F7FA]','text-slate-800');
+      iconMoon.classList.add('hidden'); iconSun.classList.remove('hidden');
+    } else {
+      root.classList.remove('light');
+      document.body.classList.add('bg-ink','text-slate-200');
+      document.body.classList.remove('bg-[#F5F7FA]','text-slate-800');
+      iconMoon.classList.remove('hidden'); iconSun.classList.add('hidden');
+    }
+  }
+  let theme = localStorage.getItem('theme') || 'dark';
+  applyTheme(theme);
+  themeToggle.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', theme);
+    applyTheme(theme);
+  });
+
+  // ---- Mobile menu ----
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+  // ---- Typing animation ----
+  const roles = ['Software Engineer', 'AI/ML Explorer', 'Web Developer', 'Hackathon Builder'];
+  const typedEl = document.getElementById('typedRole');
+  let ri = 0, ci = 0, deleting = false;
+  function typeLoop(){
+    const current = roles[ri];
+    if(!deleting){
+      ci++;
+      typedEl.textContent = current.slice(0, ci);
+      if(ci === current.length){ deleting = true; setTimeout(typeLoop, 1400); return; }
+    } else {
+      ci--;
+      typedEl.textContent = current.slice(0, ci);
+      if(ci === 0){ deleting = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(typeLoop, deleting ? 45 : 85);
+  }
+  typeLoop();
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- Skill bar animation ----
+  const skillSection = document.getElementById('skills');
+  const skillIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+        skillIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  skillIO.observe(skillSection);
+
+  // ---- Active nav highlighting ----
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const navIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+  sections.forEach(s => navIO.observe(s));
+
+  // ---- Nav bg on scroll ----
+  const mainNav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 20){ mainNav.classList.add('shadow-lg','shadow-black/20'); }
+    else { mainNav.classList.remove('shadow-lg','shadow-black/20'); }
+  });
+
+  // ---- Contact form (client-side only) ----
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if(!name || !email || !message){
+      status.textContent = 'Please fill in all fields.';
+      status.className = 'text-sm font-mono text-center h-5 text-red-400';
+      return;
+    }
+    const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:anek.varna030@gmail.com?subject=${subject}&body=${body}`;
+    status.textContent = 'Opening your email client…';
+    status.className = 'text-sm font-mono text-center h-5 text-teal-400';
+    form.reset();
+  });
+</script>
+</body>
+</html>
