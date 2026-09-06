@@ -1,0 +1,472 @@
+<style>
+  :root{
+    --bg: #0A0E14;
+    --panel: #10151F;
+    --panel-2: #141A26;
+    --line: #202838;
+    --text: #E6EAF2;
+    --muted: #7C8798;
+    --accent: #5EEAD4;
+    --accent-dim: rgba(94,234,212,0.12);
+    --warn: #F5A623;
+    --danger: #F0546B;
+    --good: #4ADE80;
+    --font-display: 'Söhne', 'Inter', -apple-system, sans-serif;
+  }
+  .dfd-root{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 40px 24px 80px;
+    max-width: 1180px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .dfd-root *{ box-sizing: border-box; }
+  .dfd-eyebrow{ color: var(--accent); font-size: 12.5px; letter-spacing: 0.04em; font-weight: 600; margin-bottom: 6px; }
+  .dfd-h1{ font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .dfd-sub{ color: var(--muted); font-size: 14.5px; max-width: 640px; }
+  .dfd-disclaimer{
+    margin-top: 18px; padding: 14px 16px; background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 10px; font-size: 12.8px; color: var(--muted);
+  }
+  .dfd-disclaimer b{ color: var(--text); }
+  .dfd-section{ margin-top: 46px; }
+  .dfd-section-head{ display:flex; align-items:baseline; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 8px;}
+  .dfd-section-title{ font-size: 19px; font-weight: 650; letter-spacing: -0.01em; }
+  .dfd-tag{ font-size: 11.5px; padding: 3px 9px; border-radius: 20px; font-weight: 600; }
+  .dfd-tag.fact{ background: rgba(94,234,212,0.12); color: var(--accent); }
+  .dfd-tag.est{ background: rgba(245,166,35,0.12); color: var(--warn); }
+
+  /* Score row */
+  .dfd-scores{ display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; }
+  .dfd-score-card{ background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; position: relative; overflow: hidden; }
+  .dfd-score-card .label{ font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 10px; }
+  .dfd-score-big{ font-size: 44px; font-weight: 750; letter-spacing: -0.02em; display:flex; align-items:baseline; gap: 6px; }
+  .dfd-score-big span.max{ font-size: 16px; color: var(--muted); font-weight: 500; }
+  .dfd-score-band{ margin-top: 10px; font-size: 12.5px; font-weight: 650; display:inline-flex; align-items:center; gap: 6px; padding: 4px 10px; border-radius: 20px; }
+  .band-minimal, .band-strong{ background: rgba(74,222,128,0.12); color: var(--good); }
+  .band-moderate, .band-good{ background: rgba(94,234,212,0.12); color: var(--accent); }
+  .band-significant, .band-fair{ background: rgba(245,166,35,0.12); color: var(--warn); }
+  .band-extensive, .band-weak{ background: rgba(240,84,107,0.12); color: var(--danger); }
+  .dfd-bar-track{ height: 6px; border-radius: 4px; background: var(--line); margin-top: 14px; overflow: hidden; }
+  .dfd-bar-fill{ height: 100%; border-radius: 4px; }
+
+  /* Stat strip */
+  .dfd-stats{ display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 14px; margin-top: 20px;}
+  .dfd-stat{ background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .dfd-stat .n{ font-size: 24px; font-weight: 700; }
+  .dfd-stat .l{ font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* Heatmap */
+  .dfd-heatmap{ display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 10px; }
+  .dfd-heat-cell{ border-radius: 10px; padding: 14px; border: 1px solid var(--line); position: relative; }
+  .dfd-heat-cell .app{ font-weight: 650; font-size: 14px; margin-bottom: 4px; }
+  .dfd-heat-cell .cat{ font-size: 11.5px; color: rgba(230,234,242,0.65); }
+  .dfd-heat-cell .lvl{ position:absolute; top: 10px; right: 12px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; }
+
+  /* Company ranking */
+  .dfd-rank-row{ display:flex; align-items:center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .dfd-rank-row:last-child{ border-bottom: none; }
+  .dfd-rank-num{ width: 22px; color: var(--muted); font-size: 13px; font-weight: 600; flex-shrink:0; }
+  .dfd-rank-name{ width: 150px; flex-shrink:0; font-weight: 600; font-size: 14px; }
+  .dfd-rank-apps{ flex: 1; font-size: 12px; color: var(--muted); min-width: 120px; }
+  .dfd-rank-bar-wrap{ flex: 2; min-width: 120px; }
+  .dfd-rank-track{ height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .dfd-rank-fill{ height: 100%; background: linear-gradient(90deg, var(--accent), #38BDF8); border-radius: 4px; }
+  .dfd-rank-pct{ width: 46px; text-align:right; font-size: 13px; font-weight: 650; color: var(--accent); flex-shrink:0; }
+
+  /* Matrix table */
+  .dfd-table-wrap{ overflow-x:auto; border: 1px solid var(--line); border-radius: 12px; }
+  table.dfd-matrix{ width: 100%; border-collapse: collapse; font-size: 13px; min-width: 720px; }
+  table.dfd-matrix th{ text-align:left; padding: 12px 14px; background: var(--panel-2); color: var(--muted); font-weight: 600; font-size: 11.5px; text-transform: none; border-bottom: 1px solid var(--line); }
+  table.dfd-matrix td{ padding: 11px 14px; border-bottom: 1px solid var(--line); }
+  table.dfd-matrix tr:last-child td{ border-bottom:none; }
+  .dot{ display:inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: middle;}
+  .dot.hi{ background: var(--danger); } .dot.mid{ background: var(--warn); } .dot.lo{ background: var(--good); }
+
+  /* Risk radar */
+  .dfd-radar-wrap{ display:flex; gap: 30px; flex-wrap: wrap; align-items:center; }
+  .dfd-radar-legend{ flex:1; min-width: 240px; }
+  .dfd-radar-legend .item{ display:flex; align-items:center; gap: 8px; font-size: 13px; margin-bottom: 10px; color: var(--muted); }
+  .dfd-radar-legend .item b{ color: var(--text); font-weight: 600; min-width: 130px; display:inline-block; }
+
+  /* Twin profile */
+  .dfd-twin{ background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 26px; display:grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media(max-width:700px){ .dfd-twin{ grid-template-columns: 1fr; } }
+  .dfd-twin h4{ font-size: 12.5px; color: var(--muted); font-weight: 650; margin: 0 0 10px; }
+  .dfd-twin ul{ margin:0; padding-left: 18px; font-size: 13.5px; color: var(--text); }
+  .dfd-twin li{ margin-bottom: 8px; }
+
+  /* Assets */
+  .dfd-assets{ display:grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 14px; }
+  .dfd-asset-card{ background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+  .dfd-asset-card .rank{ font-size: 11px; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+  .dfd-asset-card .name{ font-weight: 650; font-size: 15px; margin-bottom: 6px; }
+  .dfd-asset-card .desc{ font-size: 12.5px; color: var(--muted); }
+
+  /* Plan / simulator */
+  .dfd-plan{ display:grid; gap: 12px; }
+  .dfd-plan-item{ display:flex; align-items:flex-start; gap: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; cursor:pointer; transition: border-color .2s ease; }
+  .dfd-plan-item:hover{ border-color: var(--accent); }
+  .dfd-plan-item input{ margin-top: 3px; accent-color: var(--accent); width:16px; height:16px; flex-shrink:0; cursor:pointer;}
+  .dfd-plan-item .t{ font-weight: 620; font-size: 14px; }
+  .dfd-plan-item .d{ font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .dfd-plan-item .impact{ margin-left:auto; font-size: 12px; font-weight: 700; color: var(--accent); white-space:nowrap; padding-left: 10px;}
+  .dfd-sim-result{ margin-top: 18px; background: var(--panel-2); border: 1px dashed var(--line); border-radius: 12px; padding: 18px 20px; display:flex; align-items:center; gap: 24px; flex-wrap:wrap;}
+  .dfd-sim-result .metric{ text-align:center; }
+  .dfd-sim-result .metric .v{ font-size: 26px; font-weight: 750; }
+  .dfd-sim-result .metric .l{ font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .dfd-sim-arrow{ color: var(--muted); font-size: 20px; }
+
+  /* Final verdict */
+  .dfd-verdict{ background: linear-gradient(135deg, rgba(94,234,212,0.08), rgba(94,234,212,0.02)); border: 1px solid rgba(94,234,212,0.25); border-radius: 16px; padding: 28px; }
+  .dfd-verdict .headline{ font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .dfd-verdict p{ font-size: 13.8px; color: var(--muted); max-width: 720px; }
+  .dfd-footer-note{ margin-top: 40px; font-size: 11.5px; color: var(--muted); text-align:center; padding-top: 20px; border-top: 1px solid var(--line); }
+</style>
+
+<div class="dfd-root">
+
+  <div class="dfd-eyebrow">DIGITAL FOOTPRINT REPORT</div>
+  <h1 class="dfd-h1">Your data exposure, mapped.</h1>
+  <p class="dfd-sub">Based on the 15 services you reported using, here's an estimate of how your digital identity is spread across companies — and where the biggest exposure sits.</p>
+
+  <div class="dfd-disclaimer">
+    <b>How to read this:</b> Everything under "Facts" comes directly from your reported app list. Everything else — scores, personas, risk levels, and behavioral guesses — is a modeled <b>Estimate</b> built from publicly known data practices of these companies, not from any private account or database. Nothing here is certain, and nothing here was pulled from your actual accounts.
+  </div>
+
+  <!-- SCORES -->
+  <div class="dfd-section">
+    <div class="dfd-section-head">
+      <div class="dfd-section-title">Score Overview</div>
+      <div class="dfd-tag est">Estimate</div>
+    </div>
+    <div class="dfd-scores">
+      <div class="dfd-score-card">
+        <div class="label">DIGITAL FOOTPRINT SCORE</div>
+        <div class="dfd-score-big">78<span class="max">/100</span></div>
+        <div class="dfd-score-band band-significant">🟠 Significant</div>
+        <div class="dfd-bar-track"><div class="dfd-bar-fill" style="width:78%;background:var(--warn);"></div></div>
+      </div>
+      <div class="dfd-score-card">
+        <div class="label">PRIVACY SCORE</div>
+        <div class="dfd-score-big">41<span class="max">/100</span></div>
+        <div class="dfd-score-band band-fair">🟠 Fair</div>
+        <div class="dfd-bar-track"><div class="dfd-bar-fill" style="width:41%;background:var(--warn);"></div></div>
+      </div>
+      <div class="dfd-score-card">
+        <div class="label">ECOSYSTEM CONCENTRATION</div>
+        <div class="dfd-score-big">27<span class="max">%</span></div>
+        <div class="dfd-score-band band-moderate">🔵 Moderate — Google</div>
+        <div class="dfd-bar-track"><div class="dfd-bar-fill" style="width:27%;background:var(--accent);"></div></div>
+      </div>
+      <div class="dfd-score-card">
+        <div class="label">ESTIMATED TRACKING SURFACE</div>
+        <div class="dfd-score-big">High</div>
+        <div class="dfd-score-band band-significant">🟠 Cross-app profiling likely</div>
+        <div class="dfd-bar-track"><div class="dfd-bar-fill" style="width:70%;background:var(--warn);"></div></div>
+      </div>
+    </div>
+
+    <div class="dfd-stats">
+      <div class="dfd-stat"><div class="n">15</div><div class="l">Total services used (Fact)</div></div>
+      <div class="dfd-stat"><div class="n">11</div><div class="l">Distinct parent companies (Fact)</div></div>
+      <div class="dfd-stat"><div class="n">4</div><div class="l">Services under one company — Google (Fact)</div></div>
+      <div class="dfd-stat"><div class="n">6</div><div class="l">Broad data categories touched (Estimate)</div></div>
+    </div>
+  </div>
+
+  <!-- EXPOSURE HEATMAP -->
+  <div class="dfd-section">
+    <div class="dfd-section-head">
+      <div class="dfd-section-title">Exposure Heatmap</div>
+      <div class="dfd-tag est">Estimate</div>
+    </div>
+    <div class="dfd-heatmap" id="heatmap"></div>
+  </div>
+
+  <!-- COMPANY EXPOSURE RANKING -->
+  <div class="dfd-section">
+    <div class="dfd-section-head">
+      <div class="dfd-section-title">Company Exposure Ranking</div>
+      <div class="dfd-tag est">Estimate — share of your reported footprint</div>
+    </div>
+    <div id="rankList"></div>
+  </div>
+
+  <!-- DATA COLLECTION MATRIX -->
+  <div class="dfd-section">
+    <div class="dfd-section-head">
+      <div class="dfd-section-title">Data Collection Matrix</div>
+      <div class="dfd-tag est">Estimate — based on typical published data practices</div>
+    </div>
+    <div class="dfd-table-wrap">
+      <table class="dfd-matrix" id="matrixTable"></table>
+    </div>
+  </div>
+
+  <!-- RISK RADAR -->
+  <div class="dfd-section">
+    <div class="dfd-section-head">
+      <div class="dfd-section-title">Risk Radar</div>
+      <div class="dfd-tag est">Estimate</div>
+    </div>
+    <div class="dfd-radar-wrap">
+      <svg id="radarSvg" width="340" height="340" viewBox="0 0 340 340"></svg>
+      <div class="dfd-radar-legend" id="radarLegend"></div>
+    </div>
+  </div>
+
+  <!-- DIGITAL TWIN -->
+  <div class="dfd-section">
+    <div class="dfd-section-head">
+      <div class="dfd-section-title">Digital Twin Profile</div>
+      <div class="dfd-tag est">Estimate — modeled persona, not a real identity match</div>
+    </div>
+    <div class="dfd-twin">
+      <div>
+        <h4>LIKELY LIFESTYLE SIGNALS</h4>
+        <ul>
+          <li>Heavy short-form video &amp; social consumption (Instagram, Snapchat, TikTok, YouTube)</li>
+          <li>Mobile-first shopper, price-sensitive marketplaces (Amazon, Meesho)</li>
+          <li>Active mobile gamer, likely younger demographic skew (Roblox, PUBG Mobile, Discord)</li>
+          <li>India-based mobile payments usage (Google Pay)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>ECOSYSTEM FOOTPRINT</h4>
+        <ul>
+          <li>Split across Google, Meta, and several standalone apps — no single "super-ecosystem" lock-in</li>
+          <li>Communication spread across 3 separate networks (WhatsApp, iMessage, Discord)</li>
+          <li>Cross-device signal likely (iMessage + Android-style Google stack suggests mixed device usage)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOST VALUABLE DATA ASSETS -->
+  <div class="dfd-section">
+    <div class="dfd-section-head">
+      <div class="dfd-section-title">Most Valuable Data Assets</div>
+      <div class="dfd-tag est">Estimate — ranked by typical ad/data value</div>
+    </div>
+    <div class="dfd-assets" id="assetsGrid"></div>
+  </div>
+
+  <!-- PRIVACY IMPROVEMENT SIMULATOR -->
+  <div class="dfd-section">
+    <div class="dfd-section-head">
+      <div class="dfd-section-title">Privacy Improvement Simulator</div>
+      <div class="dfd-tag est">Interactive — toggle actions to see projected impact</div>
+    </div>
+    <div class="dfd-plan" id="planList"></div>
+    <div class="dfd-sim-result">
+      <div class="metric"><div class="v" id="simFootprint">78</div><div class="l">Footprint score</div></div>
+      <div class="dfd-sim-arrow">→</div>
+      <div class="metric"><div class="v" id="simPrivacy">41</div><div class="l">Privacy score</div></div>
+      <div class="dfd-sim-arrow">→</div>
+      <div class="metric"><div class="v" id="simBand">🟠 Fair</div><div class="l">Projected privacy band</div></div>
+    </div>
+  </div>
+
+  <!-- FINAL VERDICT -->
+  <div class="dfd-section">
+    <div class="dfd-verdict">
+      <div class="headline">Verdict: Significant footprint, fair privacy — concentrated but manageable.</div>
+      <p>Your 15 reported services span 11 companies, with Google holding the largest single share of your estimated footprint at roughly 27%. Your exposure is driven mainly by high-frequency social and entertainment apps rather than any single high-risk service. Tightening ad personalization and consolidating account permissions on Google and Meta would likely produce the largest privacy gains for the least effort. All figures above are estimates modeled from your reported app list and each company's publicly known data practices — not from any private account access.</p>
+    </div>
+  </div>
+
+  <div class="dfd-footer-note">This report uses only the services you listed. No private databases, accounts, or real-time trackers were accessed. All behavioral, demographic, and risk conclusions are estimates, not verified facts.</div>
+</div>
+
+<script>
+(function(){
+  const apps = [
+    {name:"Instagram", company:"Meta", cat:"Social", level:"hi"},
+    {name:"WhatsApp", company:"Meta", cat:"Messaging", level:"mid"},
+    {name:"Snapchat", company:"Snap Inc.", cat:"Social", level:"hi"},
+    {name:"TikTok", company:"ByteDance", cat:"Social/Video", level:"hi"},
+    {name:"YouTube", company:"Google", cat:"Video", level:"hi"},
+    {name:"Discord", company:"Discord Inc.", cat:"Messaging/Gaming", level:"mid"},
+    {name:"iMessage", company:"Apple", cat:"Messaging", level:"lo"},
+    {name:"Spotify", company:"Spotify", cat:"Entertainment", level:"mid"},
+    {name:"Roblox", company:"Roblox Corp.", cat:"Gaming", level:"mid"},
+    {name:"PUBG Mobile", company:"Krafton", cat:"Gaming", level:"mid"},
+    {name:"Amazon", company:"Amazon", cat:"Shopping", level:"hi"},
+    {name:"Meesho", company:"Meesho", cat:"Shopping", level:"mid"},
+    {name:"Google Search", company:"Google", cat:"Search", level:"hi"},
+    {name:"Google Pay", company:"Google", cat:"Finance", level:"hi"},
+    {name:"Google Photos", company:"Google", cat:"Cloud/Media", level:"mid"},
+  ];
+  const levelColor = {hi:"rgba(240,84,107,0.14)", mid:"rgba(245,166,35,0.14)", lo:"rgba(74,222,128,0.14)"};
+  const levelBorder = {hi:"rgba(240,84,107,0.4)", mid:"rgba(245,166,35,0.4)", lo:"rgba(74,222,128,0.4)"};
+  const levelText = {hi:"var(--danger)", mid:"var(--warn)", lo:"var(--good)"};
+  const levelLabel = {hi:"HIGH", mid:"MED", lo:"LOW"};
+
+  // Heatmap
+  const heatmap = document.getElementById('heatmap');
+  apps.forEach(a=>{
+    const cell = document.createElement('div');
+    cell.className='dfd-heat-cell';
+    cell.style.background = levelColor[a.level];
+    cell.style.borderColor = levelBorder[a.level];
+    cell.innerHTML = `<div class="app">${a.name}</div><div class="cat">${a.cat}</div><div class="lvl" style="color:${levelText[a.level]}">${levelLabel[a.level]}</div>`;
+    heatmap.appendChild(cell);
+  });
+
+  // Company ranking (by count of apps, weighted)
+  const companyMap = {};
+  apps.forEach(a=>{
+    companyMap[a.company] = companyMap[a.company] || {count:0, apps:[]};
+    companyMap[a.company].count++;
+    companyMap[a.company].apps.push(a.name);
+  });
+  const totalApps = apps.length;
+  const ranked = Object.entries(companyMap).map(([name,d])=>({name, count:d.count, apps:d.apps, pct: Math.round((d.count/totalApps)*100)}))
+    .sort((a,b)=> b.count - a.count);
+  const rankList = document.getElementById('rankList');
+  ranked.forEach((c,i)=>{
+    const row = document.createElement('div');
+    row.className='dfd-rank-row';
+    row.innerHTML = `
+      <div class="dfd-rank-num">${i+1}</div>
+      <div class="dfd-rank-name">${c.name}</div>
+      <div class="dfd-rank-apps">${c.apps.join(', ')}</div>
+      <div class="dfd-rank-bar-wrap"><div class="dfd-rank-track"><div class="dfd-rank-fill" style="width:${c.pct}%"></div></div></div>
+      <div class="dfd-rank-pct">${c.pct}%</div>`;
+    rankList.appendChild(row);
+  });
+
+  // Data collection matrix
+  const matrixRows = [
+    {service:"Instagram", loc:"hi", contacts:"mid", payment:"lo", browsing:"mid", biometric:"mid"},
+    {service:"WhatsApp", loc:"mid", contacts:"hi", payment:"lo", browsing:"lo", biometric:"lo"},
+    {service:"Snapchat", loc:"hi", contacts:"mid", payment:"lo", browsing:"mid", biometric:"hi"},
+    {service:"TikTok", loc:"hi", contacts:"mid", payment:"lo", browsing:"hi", biometric:"mid"},
+    {service:"YouTube", loc:"mid", contacts:"lo", payment:"lo", browsing:"hi", biometric:"lo"},
+    {service:"Discord", loc:"lo", contacts:"mid", payment:"lo", browsing:"lo", biometric:"lo"},
+    {service:"iMessage", loc:"lo", contacts:"mid", payment:"lo", browsing:"lo", biometric:"lo"},
+    {service:"Spotify", loc:"mid", contacts:"lo", payment:"mid", browsing:"mid", biometric:"lo"},
+    {service:"Roblox", loc:"lo", contacts:"lo", payment:"mid", browsing:"lo", biometric:"lo"},
+    {service:"PUBG Mobile", loc:"mid", contacts:"lo", payment:"mid", browsing:"lo", biometric:"lo"},
+    {service:"Amazon", loc:"mid", contacts:"lo", payment:"hi", browsing:"hi", biometric:"lo"},
+    {service:"Meesho", loc:"mid", contacts:"lo", payment:"hi", browsing:"mid", biometric:"lo"},
+    {service:"Google Search", loc:"hi", contacts:"lo", payment:"lo", browsing:"hi", biometric:"lo"},
+    {service:"Google Pay", loc:"mid", contacts:"lo", payment:"hi", browsing:"mid", biometric:"mid"},
+    {service:"Google Photos", loc:"mid", contacts:"lo", payment:"lo", browsing:"lo", biometric:"hi"},
+  ];
+  const cols = ["service","loc","contacts","payment","browsing","biometric"];
+  const colLabels = {loc:"Location", contacts:"Contacts", payment:"Payment Data", browsing:"Browsing/Usage", biometric:"Biometric/Media"};
+  const table = document.getElementById('matrixTable');
+  let thead = "<thead><tr><th>Service</th>";
+  cols.slice(1).forEach(c=> thead += `<th>${colLabels[c]}</th>`);
+  thead += "</tr></thead>";
+  let tbody = "<tbody>";
+  matrixRows.forEach(r=>{
+    tbody += `<tr><td><b>${r.service}</b></td>`;
+    cols.slice(1).forEach(c=>{
+      tbody += `<td><span class="dot ${r[c]}"></span>${levelLabel[r[c]]}</td>`;
+    });
+    tbody += "</tr>";
+  });
+  tbody += "</tbody>";
+  table.innerHTML = thead + tbody;
+
+  // Risk radar (5 axes)
+  const radarAxes = [
+    {label:"Identity Exposure", value:80},
+    {label:"Financial Data Risk", value:55},
+    {label:"Social Graph Exposure", value:85},
+    {label:"Location Tracking", value:65},
+    {label:"Behavioral Profiling", value:75},
+  ];
+  const svg = document.getElementById('radarSvg');
+  const cx=170, cy=170, R=120;
+  const n = radarAxes.length;
+  function pt(i, r){
+    const ang = (Math.PI*2*i/n) - Math.PI/2;
+    return [cx + r*Math.cos(ang), cy + r*Math.sin(ang)];
+  }
+  let svgHtml = '';
+  // grid rings
+  [0.25,0.5,0.75,1].forEach(f=>{
+    let pts='';
+    for(let i=0;i<n;i++){ const [x,y]=pt(i,R*f); pts += `${x},${y} `; }
+    svgHtml += `<polygon points="${pts}" fill="none" stroke="#202838" stroke-width="1"/>`;
+  });
+  // axes lines + labels
+  for(let i=0;i<n;i++){
+    const [x,y] = pt(i,R);
+    svgHtml += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#202838" stroke-width="1"/>`;
+  }
+  // data polygon
+  let dataPts='';
+  radarAxes.forEach((a,i)=>{ const [x,y]=pt(i, R*(a.value/100)); dataPts += `${x},${y} `; });
+  svgHtml += `<polygon points="${dataPts}" fill="rgba(94,234,212,0.18)" stroke="#5EEAD4" stroke-width="2"/>`;
+  radarAxes.forEach((a,i)=>{ const [x,y]=pt(i, R*(a.value/100)); svgHtml += `<circle cx="${x}" cy="${y}" r="3.5" fill="#5EEAD4"/>`; });
+  svg.innerHTML = svgHtml;
+
+  const legend = document.getElementById('radarLegend');
+  radarAxes.forEach(a=>{
+    const lvl = a.value>=70?'hi':a.value>=45?'mid':'lo';
+    const div = document.createElement('div');
+    div.className='item';
+    div.innerHTML = `<span class="dot ${lvl}"></span><b>${a.label}</b> ${a.value}/100 (Estimate)`;
+    legend.appendChild(div);
+  });
+
+  // Most valuable data assets
+  const assets = [
+    {rank:"01", name:"Social Graph & Contacts", desc:"Who you talk to and interact with — the single most monetizable signal across Instagram, WhatsApp, Snapchat, Discord.", tag:"est"},
+    {rank:"02", name:"Purchase & Payment Behavior", desc:"Amazon, Meesho, and Google Pay together sketch spending habits and price sensitivity.", tag:"est"},
+    {rank:"03", name:"Watch/Search History", desc:"YouTube and Google Search build a detailed interest and intent profile over time.", tag:"est"},
+    {rank:"04", name:"Location Patterns", desc:"Snapchat, Instagram, and Google Pay can infer routine movement and frequented places.", tag:"est"},
+    {rank:"05", name:"Media & Biometrics", desc:"Photos and short-video apps (Snapchat, Google Photos, TikTok) may process face/image data.", tag:"est"},
+  ];
+  const grid = document.getElementById('assetsGrid');
+  assets.forEach(a=>{
+    const c = document.createElement('div');
+    c.className='dfd-asset-card';
+    c.innerHTML = `<div class="rank">${a.rank}</div><div class="name">${a.name}</div><div class="desc">${a.desc}</div>`;
+    grid.appendChild(c);
+  });
+
+  // Privacy improvement simulator
+  const actions = [
+    {t:"Turn off ad personalization on Google", d:"Reduces cross-service profiling from Search, YouTube, Photos, Pay.", fp:-8, pv:+12},
+    {t:"Limit Meta ad tracking (Instagram/WhatsApp)", d:"Restricts off-platform activity linking between the two apps.", fp:-6, pv:+9},
+    {t:"Review Snapchat & TikTok data permissions", d:"Disable contact sync and reduce media/location access.", fp:-5, pv:+8},
+    {t:"Disable Discord activity status & data sharing", d:"Lowers third-party visibility into gaming/social activity.", fp:-3, pv:+4},
+    {t:"Audit Amazon & Meesho saved payment data", d:"Removes stored card profiles reused for ad targeting.", fp:-4, pv:+6},
+  ];
+  const baseFP = 78, basePV = 41;
+  const planList = document.getElementById('planList');
+  actions.forEach((a,i)=>{
+    const row = document.createElement('label');
+    row.className='dfd-plan-item';
+    row.innerHTML = `<input type="checkbox" data-i="${i}"/>
+      <div><div class="t">${a.t}</div><div class="d">${a.d}</div></div>
+      <div class="impact">Footprint ${a.fp} / Privacy +${a.pv}</div>`;
+    planList.appendChild(row);
+  });
+  function updateSim(){
+    let fp = baseFP, pv = basePV;
+    planList.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+      if(cb.checked){
+        const a = actions[+cb.dataset.i];
+        fp += a.fp; pv += a.pv;
+      }
+    });
+    fp = Math.max(0, Math.min(100, fp));
+    pv = Math.max(0, Math.min(100, pv));
+    document.getElementById('simFootprint').textContent = fp;
+    document.getElementById('simPrivacy').textContent = pv;
+    let band = pv<=30?"🔴 Weak":pv<=60?"🟠 Fair":pv<=80?"🟡 Good":"🟢 Strong";
+    document.getElementById('simBand').textContent = band;
+  }
+  planList.addEventListener('change', updateSim);
+  updateSim();
+})();
+</script>
